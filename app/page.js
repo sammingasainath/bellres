@@ -1,8 +1,8 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { portalData } from "../lib/data";
-import { ExternalLink, Search, FileText } from "lucide-react";
+import { ExternalLink, Search, FileText, Link } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import Sidebar, { iconMap } from "../components/Sidebar";
@@ -10,6 +10,7 @@ import Sidebar, { iconMap } from "../components/Sidebar";
 export default function Dashboard() {
   const [searchTerm, setSearchTerm] = useState("");
   const [activeCategory, setActiveCategory] = useState("All");
+  const [showToast, setShowToast] = useState(false);
   const searchParams = useSearchParams();
 
   // Scroll to section from URL query parameter on init
@@ -97,12 +98,13 @@ export default function Dashboard() {
                       onClick={() => {
                         const url = `${window.location.origin}/?cat=${encodeURIComponent(category.category)}`;
                         navigator.clipboard.writeText(url);
-                        alert(`Link copied to clipboard!\n${url}`);
+                        setShowToast(true);
+                        setTimeout(() => setShowToast(false), 3000);
                       }}
                       className="copy-link-btn"
                       title="Copy direct link to this section"
                     >
-                      <ExternalLink size={18} />
+                      <Link size={18} />
                     </button>
                   </div>
                   
@@ -140,6 +142,21 @@ export default function Dashboard() {
           )}
         </div>
       </main>
+      
+      {/* Toast Notification */}
+      <AnimatePresence>
+        {showToast && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+            className="toast-notification"
+          >
+            <div className="toast-icon"></div>
+            <span>Link Copied!</span>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
