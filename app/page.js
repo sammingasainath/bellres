@@ -14,23 +14,45 @@ function DashboardContent() {
   const [showBackToTop, setShowBackToTop] = useState(false);
   const searchParams = useSearchParams();
 
+  // Robust scroll function with retries
+  const scrollToSection = (id) => {
+    // Try to find element immediately
+    const attemptScroll = (attemptsLeft) => {
+      const element = document.getElementById(id);
+      const scrollContainer = document.querySelector('.content-scroll');
+      
+      if (element && scrollContainer) {
+        // Found it! Scroll now.
+        const containerRect = scrollContainer.getBoundingClientRect();
+        const elementRect = element.getBoundingClientRect();
+        // Calculate offset (element top relative to container top)
+        // Add current scrollTop to get absolute position in scrollable area
+        const relativeTop = elementRect.top - containerRect.top;
+        const currentScroll = scrollContainer.scrollTop;
+        const targetScroll = currentScroll + relativeTop - 20; // 20px padding
+        
+        scrollContainer.scrollTo({ top: targetScroll, behavior: 'smooth' });
+        setActiveCategory(id);
+        return true;
+      }
+      
+      // Not found yet, retry if attempts left
+      if (attemptsLeft > 0) {
+        setTimeout(() => attemptScroll(attemptsLeft - 1), 100);
+      }
+      return false;
+    };
+    
+    // Start trying: 20 attempts * 100ms = 2 seconds max wait
+    attemptScroll(20);
+  };
+
   // Scroll to section from URL query parameter on init
   useEffect(() => {
     const cat = searchParams.get('cat');
     if (cat) {
-      // Delay to ensure DOM is ready
-      setTimeout(() => {
-        const element = document.getElementById(cat);
-        const scrollContainer = document.querySelector('.content-scroll');
-        if (element && scrollContainer) {
-          // Calculate position relative to scroll container
-          const containerRect = scrollContainer.getBoundingClientRect();
-          const elementRect = element.getBoundingClientRect();
-          const scrollTop = scrollContainer.scrollTop + elementRect.top - containerRect.top - 20;
-          scrollContainer.scrollTo({ top: scrollTop, behavior: 'smooth' });
-          setActiveCategory(cat);
-        }
-      }, 600);
+      // Use the robust scroller
+      scrollToSection(cat);
     }
   }, [searchParams]);
 
@@ -75,14 +97,7 @@ function DashboardContent() {
   })).filter(category => category.links.length > 0);
 
   const handleScrollTo = (id) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth", block: "start" });
-      setActiveCategory(id);
-    } else {
-       setActiveCategory("All");
-       window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
+    scrollToSection(id);
   };
 
   return (

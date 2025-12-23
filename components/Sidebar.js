@@ -37,15 +37,6 @@ export default function Sidebar({ activeCategory, onNavigate }) {
           router.push('/?cat=' + id);
         } else {
           onNavigate(id);
-          // Scroll within the .content-scroll container
-          const element = document.getElementById(id);
-          const scrollContainer = document.querySelector('.content-scroll');
-          if (element && scrollContainer) {
-            const containerRect = scrollContainer.getBoundingClientRect();
-            const elementRect = element.getBoundingClientRect();
-            const scrollTop = scrollContainer.scrollTop + elementRect.top - containerRect.top - 20;
-            scrollContainer.scrollTo({ top: scrollTop, behavior: 'smooth' });
-          }
         }
       }
     }, 400); // Wait for sidebar animation
