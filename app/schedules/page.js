@@ -409,12 +409,7 @@ function SchedulesContent() {
                           <span className="countdown-label">days</span>
                         </div>
                       </div>
-                      <button 
-                        className="payroll-calendar-btn"
-                        onClick={() => nextPayDayUS && openGoogleCalendar(nextPayDayUS.payDay, 'US Pay Day', 'Biweekly pay day')}
-                      >
-                        📅 Add to Calendar
-                      </button>
+
                     </motion.div>
 
                     {/* VA Twice-Monthly Payroll */}
@@ -442,12 +437,7 @@ function SchedulesContent() {
                           <span className="countdown-label">days</span>
                         </div>
                       </div>
-                      <button 
-                        className="payroll-calendar-btn"
-                        onClick={() => vaNextPaymentStr && openGoogleCalendar(vaNextPaymentStr, 'VA Pay Day', 'Twice-monthly pay day')}
-                      >
-                        📅 Add to Calendar
-                      </button>
+
                     </motion.div>
 
                     {/* VA Monthly Payroll */}
@@ -475,12 +465,7 @@ function SchedulesContent() {
                           <span className="countdown-label">days</span>
                         </div>
                       </div>
-                      <button 
-                        className="payroll-calendar-btn"
-                        onClick={() => vaMonthlyStr && openGoogleCalendar(vaMonthlyStr, 'VA Monthly Pay Day', 'Monthly pay day')}
-                      >
-                        📅 Add to Calendar
-                      </button>
+
                     </motion.div>
                   </div>
                 </div>
@@ -606,12 +591,7 @@ function SchedulesContent() {
                           <span className="value green">{currentPeriod.payDay}</span>
                         </div>
                       </div>
-                      <button 
-                        className="add-calendar-btn"
-                        onClick={() => openGoogleCalendar(currentPeriod.payDay, 'Pay Day', 'Your pay day!')}
-                      >
-                        📅 Add to Google Calendar
-                      </button>
+
                     </div>
                   </div>
                 )}
@@ -660,18 +640,7 @@ function SchedulesContent() {
                           <DollarSign size={12} />
                           <span>{period.payDay.split(',').slice(0, 2).join(',')}</span>
                         </div>
-                        {period.daysToPayDay !== null && period.daysToPayDay >= 0 && (
-                          <button 
-                            className="card-calendar-btn"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              openGoogleCalendar(period.payDay, 'Pay Day', 'Your pay day!');
-                            }}
-                            title="Add to Google Calendar"
-                          >
-                            📅
-                          </button>
-                        )}
+
                       </motion.div>
                     ))}
                   </div>
