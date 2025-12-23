@@ -2,15 +2,16 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { portalData } from "../lib/data";
-import { ExternalLink, Search, FileText, Link } from "lucide-react";
-import { useState, useEffect } from "react";
+import { ExternalLink, Search, FileText, Link, ChevronUp } from "lucide-react";
+import { useState, useEffect, useRef, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Sidebar, { iconMap } from "../components/Sidebar";
 
-export default function Dashboard() {
+function DashboardContent() {
   const [searchTerm, setSearchTerm] = useState("");
   const [activeCategory, setActiveCategory] = useState("All");
   const [showToast, setShowToast] = useState(false);
+  const [showBackToTop, setShowBackToTop] = useState(false);
   const searchParams = useSearchParams();
 
   // Scroll to section from URL query parameter on init
@@ -27,6 +28,39 @@ export default function Dashboard() {
       }, 500);
     }
   }, [searchParams]);
+
+  // Back to top button visibility + Active section detection
+  useEffect(() => {
+    const scrollContainer = document.querySelector('.content-scroll');
+    if (!scrollContainer) return;
+    
+    let lastSection = 'All';
+    
+    const handleScroll = () => {
+      // Back to top visibility
+      setShowBackToTop(scrollContainer.scrollTop > 300);
+      
+      // Active section detection
+      const sections = document.querySelectorAll('.category-section');
+      let currentSection = 'All';
+      
+      sections.forEach((section) => {
+        const rect = section.getBoundingClientRect();
+        // Check if section is in viewport (top half of screen)
+        if (rect.top <= 200 && rect.bottom > 100) {
+          currentSection = section.id;
+        }
+      });
+      
+      if (currentSection !== lastSection) {
+        lastSection = currentSection;
+        setActiveCategory(currentSection);
+      }
+    };
+    
+    scrollContainer.addEventListener('scroll', handleScroll);
+    return () => scrollContainer.removeEventListener('scroll', handleScroll);
+  }, []); // Empty dependency array - scroll handler manages its own state
 
   const filteredData = portalData.map((category) => ({
     ...category,
@@ -143,6 +177,27 @@ export default function Dashboard() {
         </div>
       </main>
       
+      {/* Back to Top Button */}
+      <AnimatePresence>
+        {showBackToTop && (
+          <motion.button
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.8 }}
+            onClick={() => {
+              const scrollContainer = document.querySelector('.content-scroll');
+              if (scrollContainer) {
+                scrollContainer.scrollTo({ top: 0, behavior: 'smooth' });
+              }
+            }}
+            className="back-to-top-btn"
+            title="Back to top"
+          >
+            <ChevronUp size={24} />
+          </motion.button>
+        )}
+      </AnimatePresence>
+
       {/* Toast Notification */}
       <AnimatePresence>
         {showToast && (
@@ -158,5 +213,14 @@ export default function Dashboard() {
         )}
       </AnimatePresence>
     </div>
+  );
+}
+
+// Wrap in Suspense for useSearchParams
+export default function Dashboard() {
+  return (
+    <Suspense fallback={<div className="dashboard-container">Loading...</div>}>
+      <DashboardContent />
+    </Suspense>
   );
 }
