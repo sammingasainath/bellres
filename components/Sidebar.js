@@ -37,14 +37,18 @@ export default function Sidebar({ activeCategory, onNavigate }) {
           router.push('/?cat=' + id);
         } else {
           onNavigate(id);
-          // Also try direct scroll on mobile
+          // Scroll within the .content-scroll container
           const element = document.getElementById(id);
-          if (element) {
-            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          const scrollContainer = document.querySelector('.content-scroll');
+          if (element && scrollContainer) {
+            const containerRect = scrollContainer.getBoundingClientRect();
+            const elementRect = element.getBoundingClientRect();
+            const scrollTop = scrollContainer.scrollTop + elementRect.top - containerRect.top - 20;
+            scrollContainer.scrollTo({ top: scrollTop, behavior: 'smooth' });
           }
         }
       }
-    }, 350); // increased delay to wait for sidebar animation (300ms)
+    }, 400); // Wait for sidebar animation
   };
 
   return (

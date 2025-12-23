@@ -18,14 +18,19 @@ function DashboardContent() {
   useEffect(() => {
     const cat = searchParams.get('cat');
     if (cat) {
-      // Small delay to ensure DOM is ready
+      // Delay to ensure DOM is ready
       setTimeout(() => {
         const element = document.getElementById(cat);
-        if (element) {
-          element.scrollIntoView({ behavior: "smooth", block: "start" });
+        const scrollContainer = document.querySelector('.content-scroll');
+        if (element && scrollContainer) {
+          // Calculate position relative to scroll container
+          const containerRect = scrollContainer.getBoundingClientRect();
+          const elementRect = element.getBoundingClientRect();
+          const scrollTop = scrollContainer.scrollTop + elementRect.top - containerRect.top - 20;
+          scrollContainer.scrollTo({ top: scrollTop, behavior: 'smooth' });
           setActiveCategory(cat);
         }
-      }, 500);
+      }, 600);
     }
   }, [searchParams]);
 
