@@ -1,0 +1,2734 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --bg-dark: #0f172a;
+  --bg-sidebar: #1e293b;
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --accent: #fbbf24;
+  --accent-glow: rgba(251, 191, 36, 0.2);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-bg: rgba(30, 41, 59, 0.4);
+  --card-hover: rgba(255, 255, 255, 0.05);
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  font-family: 'Outfit', sans-serif;
+  /* Changed for a more modern tech/dashboard look */
+  background: var(--bg-dark);
+  color: var(--text-main);
+  overflow: hidden;
+  /* App handles scrolling */
+}
+
+/* Layout */
+.dashboard-container {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  background-image:
+    radial-gradient(circle at 10% 20%, rgba(251, 191, 36, 0.03) 0%, transparent 40%),
+    radial-gradient(circle at 90% 80%, rgba(59, 130, 246, 0.03) 0%, transparent 40%);
+}
+
+/* Sidebar */
+.sidebar {
+  width: 260px;
+  background: var(--bg-sidebar);
+  border-right: 1px solid var(--glass-border);
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  flex-shrink: 0;
+}
+
+.brand-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  margin-bottom: 40px;
+}
+
+.text-highlight {
+  color: var(--accent);
+}
+
+.nav-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow-y: auto;
+  padding-right: 8px;
+}
+
+.nav-menu::-webkit-scrollbar {
+  width: 4px;
+}
+
+.nav-menu::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+.nav-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+  margin: 20px 0 10px 12px;
+  font-weight: 600;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  padding: 12px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 500;
+  text-align: left;
+  transition: all 0.2s ease;
+  width: 100%;
+}
+
+.nav-item:hover {
+  background: var(--card-hover);
+  color: var(--text-main);
+}
+
+.nav-item.active {
+  background: rgba(251, 191, 36, 0.1);
+  color: var(--accent);
+}
+
+.nav-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Main Content */
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+}
+
+.top-bar {
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
+  border-bottom: 1px solid var(--glass-border);
+  background: rgba(15, 23, 42, 0.8);
+  backdrop-filter: blur(10px);
+  z-index: 10;
+}
+
+.search-wrapper {
+  position: relative;
+  width: 400px;
+}
+
+.search-icon {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+}
+
+.search-input {
+  width: 100%;
+  padding: 14px 14px 14px 48px;
+  background: var(--bg-sidebar);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  color: white;
+  font-family: inherit;
+  font-size: 0.95rem;
+  outline: none;
+  transition: all 0.2s;
+}
+
+.search-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+.profile-placeholder {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), #f59e0b);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #1a1a1a;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.content-scroll {
+  flex: 1;
+  overflow-y: auto;
+  padding: 40px;
+  scroll-behavior: smooth;
+}
+
+/* Hero */
+.hero-banner {
+  background: linear-gradient(135deg, rgba(251, 191, 36, 0.1), rgba(30, 41, 59, 0.3));
+  border-radius: 20px;
+  padding: 40px;
+  margin-bottom: 40px;
+  border: 1px solid var(--glass-border);
+}
+
+.hero-banner h2 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.hero-banner p {
+  color: var(--text-muted);
+}
+
+/* Categories & Grid */
+.category-section {
+  margin-bottom: 50px;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.section-icon-wrapper {
+  width: 40px;
+  height: 40px;
+  background: rgba(251, 191, 36, 0.1);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.section-header h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.copy-link-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  color: var(--text-muted);
+  opacity: 0;
+  transition: all 0.2s ease;
+  margin-left: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.copy-link-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--accent);
+}
+
+.section-header:hover .copy-link-btn {
+  opacity: 1;
+}
+
+.links-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+/* Link Cards */
+.link-card {
+  position: relative;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  padding: 20px;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  overflow: hidden;
+  transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.link-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  z-index: 2;
+}
+
+.link-name {
+  font-weight: 500;
+  font-size: 1rem;
+  line-height: 1.4;
+  color: rgba(248, 250, 252, 0.9);
+  padding-right: 16px;
+}
+
+.link-arrow {
+  color: var(--text-muted);
+  transition: transform 0.2s, color 0.2s;
+}
+
+.link-card:hover {
+  background: rgba(30, 41, 59, 0.7);
+  border-color: rgba(251, 191, 36, 0.3);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+  transform: translateY(-4px);
+}
+
+.link-card:hover .link-arrow {
+  transform: translate(2px, -2px);
+  color: var(--accent);
+}
+
+.link-card:hover .link-name {
+  color: white;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .dashboard-container {
+    flex-direction: column;
+    overflow-y: auto;
+  }
+
+  .sidebar {
+    width: 100%;
+    height: auto;
+    flex-direction: row;
+    align-items: center;
+    padding: 16px;
+    overflow-x: auto;
+  }
+
+  .brand-title {
+    margin-bottom: 0;
+    margin-right: 20px;
+  }
+
+  .nav-menu {
+    flex-direction: row;
+    overflow-x: auto;
+    padding: 0;
+  }
+
+  .nav-label {
+    display: none;
+  }
+
+  .nav-item {
+    padding: 8px 16px;
+    white-space: nowrap;
+    width: auto;
+  }
+
+  .main-content {
+    overflow: visible;
+  }
+
+  .content-scroll {
+    overflow: visible;
+  }
+
+  .search-wrapper {
+    width: 100%;
+    margin-right: 20px;
+  }
+}
+
+@media (max-width: 640px) {
+  .top-bar {
+    padding: 0 20px;
+  }
+
+  .links-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ========================================
+   SCHEDULES PAGE - PREMIUM STYLES
+   ======================================== */
+
+.schedules-page {
+  padding: 40px;
+}
+
+.schedules-header {
+  margin-bottom: 32px;
+}
+
+.schedules-header h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  background: linear-gradient(135deg, #fff 0%, #94a3b8 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.schedules-header p {
+  color: var(--text-muted);
+  font-size: 1.1rem;
+}
+
+/* Premium Tabs */
+.premium-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 32px;
+  padding: 8px;
+  background: rgba(30, 41, 59, 0.5);
+  border-radius: 16px;
+  width: fit-content;
+}
+
+.premium-tab {
+  position: relative;
+  padding: 12px 24px;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.premium-tab:hover {
+  color: var(--text-main);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.premium-tab.active {
+  color: var(--bg-dark);
+  background: var(--accent);
+  font-weight: 600;
+}
+
+.premium-tab .tab-indicator {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 2px;
+  background: var(--accent);
+  transition: width 0.3s ease;
+}
+
+.premium-tab.active .tab-indicator {
+  width: 60%;
+}
+
+/* Schedule Content */
+.schedule-content {
+  min-height: 400px;
+}
+
+/* Schedule Grid */
+.schedule-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+}
+
+@media (max-width: 1200px) {
+  .schedule-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.schedule-section {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  padding: 24px;
+  backdrop-filter: blur(10px);
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+  color: var(--accent);
+}
+
+.section-title h3 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+/* Pay Period Cards */
+.pay-periods-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 500px;
+  overflow-y: auto;
+  padding-right: 8px;
+}
+
+.pay-card {
+  position: relative;
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  padding: 16px;
+  transition: all 0.2s ease;
+}
+
+.pay-card:hover {
+  border-color: rgba(251, 191, 36, 0.3);
+  transform: translateX(4px);
+}
+
+.pay-card.active {
+  border-color: var(--accent);
+  background: rgba(251, 191, 36, 0.05);
+  box-shadow: 0 0 20px rgba(251, 191, 36, 0.1);
+}
+
+.active-badge {
+  position: absolute;
+  top: -8px;
+  right: 12px;
+  background: var(--accent);
+  color: var(--bg-dark);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.pay-card-dates {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.date-block {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.date-block .label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+}
+
+.date-block .value {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-main);
+}
+
+.pay-card-dates .arrow {
+  color: var(--text-muted);
+}
+
+.pay-day {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-top: 12px;
+  border-top: 1px solid var(--glass-border);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.pay-day svg {
+  color: #22c55e;
+}
+
+.pay-day strong {
+  color: #22c55e;
+}
+
+/* Holiday Cards */
+.holidays-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 16px;
+}
+
+.holiday-card {
+  position: relative;
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  padding: 20px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.holiday-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(251, 191, 36, 0.3);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+}
+
+.holiday-card.upcoming {
+  border-color: var(--accent);
+  background: linear-gradient(135deg, rgba(251, 191, 36, 0.1) 0%, transparent 100%);
+}
+
+.upcoming-badge {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, var(--accent), #f59e0b);
+  color: var(--bg-dark);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.holiday-icon {
+  width: 48px;
+  height: 48px;
+  background: rgba(251, 191, 36, 0.1);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 12px;
+  color: var(--accent);
+}
+
+.holiday-card h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--text-main);
+}
+
+.holiday-date {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+
+.closed-info {
+  font-size: 0.75rem;
+  color: #64748b;
+}
+
+/* Payroll Table */
+.payroll-table-container {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  padding: 24px;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+  margin-top: 20px;
+}
+
+.premium-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.premium-table td {
+  padding: 12px 16px;
+  font-size: 0.85rem;
+  border-bottom: 1px solid var(--glass-border);
+  white-space: nowrap;
+}
+
+.premium-table tr.header-row {
+  background: rgba(251, 191, 36, 0.1);
+}
+
+.premium-table tr.header-row td {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.premium-table tr:hover:not(.header-row) {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+/* Loading & Error States */
+.loading-state,
+.error-state,
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+  gap: 16px;
+  color: var(--text-muted);
+}
+
+.spinner {
+  animation: spin 1s linear infinite;
+  color: var(--accent);
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.error-state {
+  color: #f87171;
+}
+
+/* Year Header */
+.year-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 24px 0;
+}
+
+.year-line {
+  flex: 1;
+  height: 1px;
+  background: var(--glass-border);
+}
+
+.year-badge {
+  background: var(--accent);
+  color: var(--bg-dark);
+  padding: 4px 16px;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+/* ========================================
+   ULTRA SCHEDULES - PREMIUM DASHBOARD
+   ======================================== */
+
+.ultra-schedules {
+  padding: 32px 40px;
+}
+
+/* Hero Section */
+.schedule-hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+  padding: 40px;
+  background: linear-gradient(135deg, rgba(251, 191, 36, 0.08) 0%, rgba(30, 41, 59, 0.4) 100%);
+  border-radius: 24px;
+  border: 1px solid rgba(251, 191, 36, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.schedule-hero::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(251, 191, 36, 0.1) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero-content h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  background: linear-gradient(135deg, #fff 0%, #fbbf24 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-content p {
+  color: var(--text-muted);
+  font-size: 1.1rem;
+}
+
+/* Next Payday Hero Widget */
+.next-payday-hero {
+  text-align: center;
+  padding: 24px 40px;
+  background: rgba(34, 197, 94, 0.1);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  border-radius: 20px;
+  min-width: 180px;
+}
+
+.countdown-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #22c55e;
+  margin-bottom: 8px;
+}
+
+.countdown-value {
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: #22c55e;
+  line-height: 1;
+}
+
+.countdown-unit {
+  font-size: 0.9rem;
+  color: #22c55e;
+  opacity: 0.8;
+}
+
+.countdown-date {
+  margin-top: 8px;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* View Switcher */
+.view-switcher {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+}
+
+.view-btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 28px;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 14px;
+  color: var(--text-muted);
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.view-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-main);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.view-btn.active {
+  background: linear-gradient(135deg, var(--accent), #f59e0b);
+  color: var(--bg-dark);
+  border-color: transparent;
+  font-weight: 600;
+}
+
+.active-glow {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, transparent 100%);
+  pointer-events: none;
+}
+
+/* Stats Row */
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-bottom: 32px;
+}
+
+@media (max-width: 1400px) {
+  .stats-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 800px) {
+  .stats-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+.stat-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 24px;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  transition: all 0.3s ease;
+}
+
+.stat-card.highlight {
+  background: rgba(34, 197, 94, 0.08);
+  border-color: rgba(34, 197, 94, 0.3);
+}
+
+.stat-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stat-card.blue .stat-icon {
+  background: rgba(59, 130, 246, 0.15);
+  color: #3b82f6;
+}
+
+.stat-card.green .stat-icon {
+  background: rgba(34, 197, 94, 0.15);
+  color: #22c55e;
+}
+
+.stat-card.purple .stat-icon {
+  background: rgba(168, 85, 247, 0.15);
+  color: #a855f7;
+}
+
+.stat-card.amber .stat-icon {
+  background: rgba(251, 191, 36, 0.15);
+  color: #fbbf24;
+}
+
+.stat-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-label {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+
+.stat-value {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.stat-subtext {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+/* Overview Columns */
+.overview-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+@media (max-width: 1200px) {
+  .overview-columns {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Ultra Cards */
+.ultra-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  padding: 28px;
+  backdrop-filter: blur(10px);
+}
+
+.ultra-card.full-width {
+  width: 100%;
+}
+
+.ultra-card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+  color: var(--accent);
+}
+
+.ultra-card-header h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+/* Timeline */
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.timeline-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  background: rgba(15, 23, 42, 0.5);
+  border-radius: 12px;
+  position: relative;
+}
+
+.timeline-item.first {
+  background: rgba(34, 197, 94, 0.1);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.timeline-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--text-muted);
+}
+
+.timeline-item.first .timeline-dot {
+  background: #22c55e;
+  box-shadow: 0 0 10px rgba(34, 197, 94, 0.5);
+}
+
+.timeline-content {
+  flex: 1;
+}
+
+.timeline-content h4 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.timeline-content p {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.timeline-badge {
+  padding: 6px 12px;
+  background: rgba(251, 191, 36, 0.1);
+  color: var(--accent);
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+/* Mini Holiday Cards */
+.holiday-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.mini-holiday-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  background: rgba(15, 23, 42, 0.5);
+  border: 1px solid var(--glass-border);
+  border-radius: 14px;
+  transition: all 0.3s ease;
+}
+
+.mini-holiday-card:hover {
+  border-color: rgba(251, 191, 36, 0.3);
+}
+
+.holiday-emoji {
+  font-size: 2rem;
+}
+
+.holiday-info {
+  flex: 1;
+}
+
+.holiday-info h4 {
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.holiday-info p {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.holiday-countdown {
+  text-align: center;
+  padding: 8px 12px;
+  background: rgba(251, 191, 36, 0.1);
+  border-radius: 10px;
+}
+
+.holiday-countdown .days {
+  display: block;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.holiday-countdown .label {
+  font-size: 0.65rem;
+  color: var(--text-muted);
+}
+
+/* Pay Periods View */
+.pay-periods-timeline {
+  max-height: 600px;
+  overflow-y: auto;
+  padding-right: 8px;
+}
+
+.pay-period-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  border-radius: 12px;
+  margin-bottom: 8px;
+  background: rgba(15, 23, 42, 0.3);
+  transition: all 0.2s ease;
+}
+
+.pay-period-row:hover {
+  background: rgba(15, 23, 42, 0.6);
+}
+
+.pay-period-row.active {
+  background: rgba(34, 197, 94, 0.1);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.pay-period-row.past {
+  opacity: 0.5;
+}
+
+.period-status {
+  width: 24px;
+  display: flex;
+  justify-content: center;
+}
+
+.status-active {
+  color: #22c55e;
+}
+
+.status-past {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--text-muted);
+  opacity: 0.5;
+}
+
+.status-future {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.period-dates {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  font-size: 0.85rem;
+}
+
+.period-dates svg {
+  color: var(--text-muted);
+}
+
+.period-payday {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #22c55e;
+  font-size: 0.85rem;
+  min-width: 180px;
+}
+
+.period-countdown {
+  padding: 4px 12px;
+  background: rgba(251, 191, 36, 0.1);
+  color: var(--accent);
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.current-badge {
+  padding: 4px 12px;
+  background: #22c55e;
+  color: var(--bg-dark);
+  border-radius: 20px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+/* Holidays View */
+.holidays-view {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+
+.year-section {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.year-badge-large {
+  display: inline-flex;
+  align-self: flex-start;
+  padding: 8px 24px;
+  background: linear-gradient(135deg, var(--accent), #f59e0b);
+  color: var(--bg-dark);
+  border-radius: 30px;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.holidays-mega-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.holiday-mega-card {
+  position: relative;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  padding: 28px;
+  text-align: center;
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.holiday-mega-card:hover {
+  border-color: rgba(251, 191, 36, 0.4);
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
+}
+
+.holiday-mega-card.upcoming {
+  background: linear-gradient(135deg, rgba(251, 191, 36, 0.1) 0%, transparent 100%);
+  border-color: var(--accent);
+}
+
+.upcoming-ribbon {
+  position: absolute;
+  top: 12px;
+  right: -30px;
+  background: var(--accent);
+  color: var(--bg-dark);
+  padding: 4px 40px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  transform: rotate(45deg);
+}
+
+.mega-emoji {
+  font-size: 3rem;
+  margin-bottom: 16px;
+}
+
+.holiday-mega-card h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.mega-date {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+
+.mega-closed {
+  font-size: 0.75rem;
+  color: #64748b;
+}
+
+.mega-countdown {
+  margin-top: 16px;
+  padding: 12px;
+  background: rgba(251, 191, 36, 0.1);
+  border-radius: 12px;
+}
+
+.mega-countdown .count {
+  display: block;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.mega-countdown .unit {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+/* Ultra Table */
+.payroll-table-wrapper {
+  overflow-x: auto;
+}
+
+.ultra-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 1000px;
+}
+
+.ultra-table td {
+  padding: 14px 16px;
+  font-size: 0.85rem;
+  border-bottom: 1px solid var(--glass-border);
+  white-space: nowrap;
+}
+
+.ultra-table tr.header {
+  background: rgba(251, 191, 36, 0.08);
+}
+
+.ultra-table tr.header td {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.ultra-table tr:hover:not(.header) {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+/* Loading States */
+.loading-fullscreen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  gap: 20px;
+  color: var(--text-muted);
+}
+
+.loader-ring {
+  width: 48px;
+  height: 48px;
+  border: 3px solid var(--glass-border);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ========================================
+   VA PAYROLL DASHBOARD
+   ======================================== */
+
+.va-payroll-dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.payroll-sub-nav {
+  display: flex;
+  gap: 12px;
+  padding: 8px;
+  background: var(--glass-bg);
+  border-radius: 14px;
+  width: fit-content;
+}
+
+.payroll-nav-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  background: transparent;
+  border: none;
+  border-radius: 10px;
+  color: var(--text-muted);
+  font-family: inherit;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.payroll-nav-btn:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-main);
+}
+
+.payroll-nav-btn.active {
+  background: var(--accent);
+  color: var(--bg-dark);
+  font-weight: 600;
+}
+
+.payroll-content-grid {
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  gap: 24px;
+}
+
+@media (max-width: 1200px) {
+  .payroll-content-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.payroll-main {
+  min-height: 400px;
+}
+
+.payroll-section-header {
+  margin-bottom: 24px;
+}
+
+.payroll-section-header h3 {
+  font-size: 1.4rem;
+  margin-bottom: 4px;
+}
+
+.payroll-section-header p {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+/* Twice Monthly Grid */
+.payroll-months-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 16px;
+}
+
+.payroll-month-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  padding: 20px;
+  transition: all 0.2s ease;
+}
+
+.payroll-month-card:hover {
+  border-color: rgba(251, 191, 36, 0.3);
+}
+
+.month-name {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--accent);
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.month-periods {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.period-block {
+  padding: 12px;
+  border-radius: 10px;
+  background: rgba(15, 23, 42, 0.5);
+}
+
+.period-block.q1 {
+  border-left: 3px solid #3b82f6;
+}
+
+.period-block.q2 {
+  border-left: 3px solid #a855f7;
+}
+
+.period-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+
+.period-detail {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 0;
+}
+
+.detail-label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.detail-value {
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.detail-value.highlight {
+  color: #22c55e;
+  font-weight: 600;
+}
+
+.detail-value.accent {
+  color: var(--accent);
+}
+
+/* Monthly Cards Grid */
+.monthly-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.monthly-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  padding: 20px;
+  transition: all 0.3s ease;
+}
+
+.monthly-card:hover {
+  border-color: rgba(251, 191, 36, 0.3);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.4);
+}
+
+.monthly-month {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.monthly-details {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.monthly-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.monthly-row:last-child {
+  border-bottom: none;
+}
+
+.monthly-row span {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.monthly-row strong {
+  font-size: 0.85rem;
+  color: var(--text-main);
+}
+
+.monthly-row.payment strong {
+  color: #22c55e;
+}
+
+.monthly-row.cutoff strong {
+  color: var(--accent);
+}
+
+/* Holidays Sidebar */
+.payroll-holidays-sidebar {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  padding: 20px;
+  height: fit-content;
+  position: sticky;
+  top: 20px;
+}
+
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--glass-border);
+  color: var(--accent);
+}
+
+.sidebar-header h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.holidays-mini-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.holiday-mini-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  background: rgba(15, 23, 42, 0.5);
+  border-radius: 10px;
+  transition: all 0.2s ease;
+}
+
+.holiday-mini-item:hover {
+  background: rgba(251, 191, 36, 0.1);
+}
+
+.holiday-mini-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.holiday-mini-name {
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.holiday-mini-date {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.holiday-mini-days {
+  padding: 4px 10px;
+  background: rgba(251, 191, 36, 0.15);
+  color: var(--accent);
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.holiday-mini-date {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+/* VA Payroll Stats */
+.va-stats-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+@media (max-width: 1200px) {
+  .va-stats-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .va-stats-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+.va-stat-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  transition: all 0.3s ease;
+}
+
+.va-stat-card:hover {
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.va-stat-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.va-stat-card.green .va-stat-icon {
+  background: rgba(34, 197, 94, 0.15);
+  color: #22c55e;
+}
+
+.va-stat-card.amber .va-stat-icon {
+  background: rgba(251, 191, 36, 0.15);
+  color: #fbbf24;
+}
+
+.va-stat-card.blue .va-stat-icon {
+  background: rgba(59, 130, 246, 0.15);
+  color: #3b82f6;
+}
+
+.va-stat-card.purple .va-stat-icon {
+  background: rgba(168, 85, 247, 0.15);
+  color: #a855f7;
+}
+
+.va-stat-card.green {
+  border-left: 3px solid #22c55e;
+}
+
+.va-stat-card.amber {
+  border-left: 3px solid #fbbf24;
+}
+
+.va-stat-card.blue {
+  border-left: 3px solid #3b82f6;
+}
+
+.va-stat-card.purple {
+  border-left: 3px solid #a855f7;
+}
+
+.va-stat-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.va-stat-label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 4px;
+}
+
+.va-stat-value {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.va-stat-subtext {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+/* ========================================
+   NEW PAY PERIODS LAYOUT
+   ======================================== */
+
+/* Current Period Spotlight */
+.current-period-spotlight {
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.1) 0%, rgba(59, 130, 246, 0.1) 100%);
+  border: 2px solid rgba(34, 197, 94, 0.3);
+  border-radius: 20px;
+  padding: 28px;
+  margin-bottom: 32px;
+}
+
+.spotlight-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.spotlight-badge {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #22c55e;
+}
+
+.spotlight-progress {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.progress-bar {
+  width: 120px;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #22c55e, #3b82f6);
+  border-radius: 10px;
+}
+
+.spotlight-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.spotlight-dates {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.spotlight-date-block {
+  display: flex;
+  flex-direction: column;
+}
+
+.spotlight-date-block .label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 4px;
+}
+
+.spotlight-date-block .value {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.spotlight-arrow {
+  font-size: 1.5rem;
+  color: var(--text-muted);
+}
+
+.spotlight-payday {
+  display: flex;
+  flex-direction: column;
+  padding: 12px 20px;
+  background: rgba(34, 197, 94, 0.1);
+  border-radius: 12px;
+  border: 1px solid rgba(34, 197, 94, 0.2);
+}
+
+.spotlight-payday .label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.spotlight-payday .value.green {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #22c55e;
+}
+
+.add-calendar-btn {
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  border: none;
+  border-radius: 12px;
+  color: white;
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.add-calendar-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px -5px rgba(59, 130, 246, 0.4);
+}
+
+/* Periods Card Grid */
+.periods-grid-section h3 {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+  color: var(--text-muted);
+}
+
+.periods-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 16px;
+}
+
+.period-card {
+  position: relative;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  padding: 16px;
+  transition: all 0.2s ease;
+}
+
+.period-card:hover {
+  border-color: rgba(251, 191, 36, 0.3);
+}
+
+.period-card.active {
+  border-color: #22c55e;
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.1), rgba(34, 197, 94, 0.05));
+}
+
+.period-card.past {
+  opacity: 0.4;
+}
+
+.card-current-badge {
+  position: absolute;
+  top: -8px;
+  right: 12px;
+  padding: 4px 10px;
+  background: #22c55e;
+  color: white;
+  font-size: 0.65rem;
+  font-weight: 700;
+  border-radius: 8px;
+  letter-spacing: 0.05em;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.card-num {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.card-days {
+  padding: 3px 8px;
+  background: rgba(251, 191, 36, 0.15);
+  color: var(--accent);
+  border-radius: 8px;
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
+.card-dates {
+  margin-bottom: 12px;
+}
+
+.card-start,
+.card-end {
+  font-size: 0.8rem;
+  color: var(--text-main);
+}
+
+.card-start {
+  font-weight: 600;
+}
+
+.card-end {
+  color: var(--text-muted);
+}
+
+.card-payday {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  background: rgba(34, 197, 94, 0.1);
+  border-radius: 8px;
+  font-size: 0.8rem;
+  color: #22c55e;
+  font-weight: 600;
+}
+
+.card-calendar-btn {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  width: 28px;
+  height: 28px;
+  border: none;
+  background: rgba(59, 130, 246, 0.15);
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  transition: all 0.2s ease;
+}
+
+.card-calendar-btn:hover {
+  background: rgba(59, 130, 246, 0.3);
+  transform: scale(1.1);
+}
+
+/* Search Bar */
+.schedule-search {
+  position: relative;
+  margin-bottom: 24px;
+}
+
+.schedule-search input {
+  width: 100%;
+  max-width: 400px;
+  padding: 14px 20px 14px 48px;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 14px;
+  color: var(--text-main);
+  font-family: inherit;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+}
+
+.schedule-search input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.1);
+}
+
+.schedule-search input::placeholder {
+  color: var(--text-muted);
+}
+
+.schedule-search-icon {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+}
+
+/* Theme Toggle */
+.theme-toggle {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  transition: all 0.2s ease;
+  z-index: 100;
+}
+
+.theme-toggle:hover {
+  transform: scale(1.1);
+  border-color: var(--accent);
+}
+
+/* Holiday Coming Soon Ribbon */
+.upcoming-ribbon {
+  position: absolute;
+  top: 20px;
+  right: -35px;
+  width: 150px;
+  padding: 8px 0;
+  background: linear-gradient(135deg, #fbbf24, #f59e0b);
+  color: #1a1a2e;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transform: rotate(45deg);
+  box-shadow: 0 4px 12px rgba(251, 191, 36, 0.3);
+  z-index: 10;
+}
+
+.holiday-mega-card {
+  position: relative;
+  overflow: hidden;
+}
+
+/* ========================================
+   DUAL PAYROLL OVERVIEW SECTION
+   ======================================== */
+
+.dual-payroll-section {
+  margin-bottom: 32px;
+}
+
+.section-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: var(--text-main);
+}
+
+.payroll-comparison {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+@media (max-width: 768px) {
+  .payroll-comparison {
+    grid-template-columns: 1fr;
+  }
+}
+
+.payroll-card {
+  background: var(--glass-bg);
+  border: 2px solid var(--glass-border);
+  border-radius: 20px;
+  padding: 24px;
+  transition: all 0.3s ease;
+}
+
+.payroll-card:hover {
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.payroll-card.us-payroll {
+  border-left: 4px solid #3b82f6;
+}
+
+.payroll-card.va-payroll {
+  border-left: 4px solid #22c55e;
+}
+
+.payroll-card.va-monthly-payroll {
+  border-left: 4px solid #a855f7;
+}
+
+.payroll-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.payroll-badge {
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.payroll-badge.us {
+  background: rgba(59, 130, 246, 0.15);
+  color: #3b82f6;
+}
+
+.payroll-badge.va {
+  background: rgba(34, 197, 94, 0.15);
+  color: #22c55e;
+}
+
+.payroll-badge.va-monthly {
+  background: rgba(168, 85, 247, 0.15);
+  color: #a855f7;
+}
+
+.payroll-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.payroll-stat {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.payroll-stat .stat-label {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.payroll-stat .stat-value {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.payroll-stat .stat-value.green {
+  color: #22c55e;
+}
+
+.payroll-stat.highlight {
+  padding: 12px 16px;
+  background: rgba(34, 197, 94, 0.08);
+  border-radius: 12px;
+  border: 1px solid rgba(34, 197, 94, 0.15);
+}
+
+.payroll-countdown {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding-top: 12px;
+  border-top: 1px solid var(--glass-border);
+}
+
+.payroll-countdown .countdown-num {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.payroll-countdown .countdown-label {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.payroll-calendar-btn {
+  width: 100%;
+  padding: 12px 20px;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.1));
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  border-radius: 12px;
+  color: var(--text-main);
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.payroll-calendar-btn:hover {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(139, 92, 246, 0.2));
+  transform: translateY(-2px);
+}
+
+.quick-stats-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+@media (max-width: 600px) {
+  .quick-stats-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ========================================
+   HERO PAYROLL GRID (3 PAYROLL TYPES)
+   ======================================== */
+
+.hero-payroll-grid {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.hero-payroll-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  padding: 16px 24px;
+  text-align: center;
+  min-width: 140px;
+  transition: all 0.3s ease;
+}
+
+.hero-payroll-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+/* Color variants */
+.hero-payroll-card.onsite {
+  border-color: rgba(59, 130, 246, 0.4);
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(59, 130, 246, 0.05));
+}
+
+.hero-payroll-card.va-ach {
+  border-color: rgba(34, 197, 94, 0.4);
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.1), rgba(34, 197, 94, 0.05));
+}
+
+.hero-payroll-card.va-monthly {
+  border-color: rgba(168, 85, 247, 0.4);
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.1), rgba(168, 85, 247, 0.05));
+}
+
+.hero-payroll-badge {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
+  color: var(--text-muted);
+}
+
+.hero-payroll-card.onsite .hero-payroll-badge {
+  color: #3b82f6;
+}
+
+.hero-payroll-card.va-ach .hero-payroll-badge {
+  color: #22c55e;
+}
+
+.hero-payroll-card.va-monthly .hero-payroll-badge {
+  color: #a855f7;
+}
+
+.hero-payroll-days {
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.hero-payroll-card.onsite .hero-payroll-days {
+  color: #3b82f6;
+}
+
+.hero-payroll-card.va-ach .hero-payroll-days {
+  color: #22c55e;
+}
+
+.hero-payroll-card.va-monthly .hero-payroll-days {
+  color: #a855f7;
+}
+
+.hero-payroll-label {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.hero-payroll-date {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+/* ========================================
+   MOBILE RESPONSIVE STYLES
+   ======================================== */
+
+/* Mobile Menu Button */
+.mobile-menu-btn {
+  display: none;
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  z-index: 1001;
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: #1e293b;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #f8fafc;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.mobile-menu-btn:hover {
+  background: var(--card-hover);
+}
+
+/* Mobile Close Button in Sidebar */
+.mobile-close-btn {
+  display: none;
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.mobile-close-btn:hover {
+  background: var(--card-hover);
+  color: var(--text-main);
+}
+
+/* Sidebar Overlay */
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 999;
+  backdrop-filter: blur(4px);
+}
+
+/* Sidebar Header for Mobile */
+.sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Mobile Breakpoint */
+@media (max-width: 768px) {
+
+  /* Show hamburger */
+  .mobile-menu-btn {
+    display: flex;
+  }
+
+  /* Show close button */
+  .mobile-close-btn {
+    display: block;
+  }
+
+  /* Show overlay when sidebar is open */
+  .sidebar-overlay {
+    display: block;
+  }
+
+  /* Sidebar: hidden by default, slide in when open */
+  .sidebar {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: auto !important;
+    bottom: auto !important;
+    height: 100vh !important;
+    height: 100dvh !important;
+    width: 280px !important;
+    max-width: 85vw !important;
+    z-index: 1000 !important;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    box-shadow: 4px 0 20px rgba(0, 0, 0, 0.5);
+    background: #0f172a !important;
+    overflow-y: auto;
+    display: flex !important;
+    flex-direction: column !important;
+    padding: 24px !important;
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  /* Main content takes full width */
+  .main-content {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .dashboard-container {
+    flex-direction: column;
+  }
+
+  /* Force nav-menu vertical */
+  .nav-menu {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+    width: 100% !important;
+  }
+
+  .sidebar-header {
+    flex-direction: row !important;
+    margin-bottom: 24px !important;
+  }
+
+  .nav-item {
+    width: 100% !important;
+    flex-direction: row !important;
+  }
+
+  /* Hero section adjustments */
+  .schedule-hero {
+    flex-direction: column;
+    gap: 20px;
+    padding: 60px 16px 24px;
+    text-align: center;
+  }
+
+  .hero-payroll-grid {
+    width: 100%;
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .hero-payroll-card {
+    flex: 1;
+    min-width: 0;
+    max-width: 120px;
+    padding: 10px 8px;
+  }
+
+  .hero-payroll-badge {
+    font-size: 0.55rem;
+  }
+
+  .hero-payroll-days {
+    font-size: 1.5rem;
+  }
+
+  .hero-payroll-label {
+    font-size: 0.65rem;
+  }
+
+  .hero-payroll-date {
+    font-size: 0.6rem;
+  }
+
+  .next-payday-hero {
+    position: relative;
+    top: auto;
+    right: auto;
+    margin: 0 auto;
+  }
+
+  .hero-content h1 {
+    font-size: 1.5rem;
+  }
+
+  .hero-content p {
+    font-size: 0.9rem;
+  }
+
+  /* Search bar */
+  .schedule-search {
+    padding: 0 16px;
+  }
+
+  .schedule-search input {
+    max-width: 100%;
+  }
+
+  /* View switcher - horizontal scroll */
+  .view-switcher {
+    overflow-x: auto;
+    padding: 0 16px;
+    gap: 8px;
+    justify-content: flex-start;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .view-switcher::-webkit-scrollbar {
+    display: none;
+  }
+
+  .view-btn {
+    flex-shrink: 0;
+    padding: 10px 16px;
+    font-size: 0.85rem;
+  }
+
+  /* Dual payroll cards - stack */
+  .payroll-comparison {
+    grid-template-columns: 1fr;
+  }
+
+  .payroll-card {
+    padding: 20px;
+  }
+
+  .payroll-countdown .countdown-num {
+    font-size: 2rem;
+  }
+
+  /* Stats cards - single column */
+  .stats-row {
+    grid-template-columns: 1fr;
+  }
+
+  .va-stats-row {
+    grid-template-columns: 1fr;
+  }
+
+  /* Overview columns - stack */
+  .overview-columns {
+    grid-template-columns: 1fr;
+  }
+
+  /* Period cards grid - 2 columns */
+  .periods-card-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .period-card {
+    padding: 12px;
+  }
+
+  /* Current period spotlight */
+  .current-period-spotlight {
+    padding: 20px;
+  }
+
+  .spotlight-content {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .spotlight-dates {
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+  }
+
+  .spotlight-arrow {
+    transform: rotate(90deg);
+  }
+
+  .add-calendar-btn {
+    width: 100%;
+  }
+
+  /* Holiday cards */
+  .holiday-cards-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Ultra card padding */
+  .ultra-card {
+    padding: 16px;
+  }
+
+  /* Top bar for main dashboard */
+  .top-bar {
+    padding: 16px;
+    padding-left: 70px;
+  }
+
+  /* Content scroll padding */
+  .content-scroll {
+    padding: 16px;
+  }
+
+  /* Links grid */
+  .links-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Monthly cards */
+  .monthly-cards-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .payroll-months-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Extra small devices */
+@media (max-width: 480px) {
+  .periods-card-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .mini-holiday-card {
+    flex-direction: column;
+    text-align: center;
+    gap: 12px;
+  }
+
+  .holiday-countdown {
+    position: relative;
+  }
+
+  .brand-title {
+    font-size: 1.25rem;
+  }
+
+  .payroll-countdown .countdown-num {
+    font-size: 1.75rem;
+  }
+}
