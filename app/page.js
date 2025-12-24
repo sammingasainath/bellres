@@ -2,10 +2,33 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { portalData } from "../lib/data";
-import { ExternalLink, Search, FileText, Link, ChevronUp } from "lucide-react";
+import { 
+  ExternalLink, Search, FileText, Link, ChevronUp, 
+  BookOpen, Clock, CalendarOff, Receipt, AlertTriangle, 
+  DollarSign, Image, Share2, Briefcase, UserPlus, Star, 
+  BarChart2, Megaphone, FileSignature, Users, Badge, 
+  TrendingUp, UserMinus, Heart, Monitor, Zap, Package, 
+  Wrench, Smartphone, List, Calendar, Shield, Home, 
+  Activity, X, Building, BarChart, Settings, 
+  UploadCloud, Table, Database, GraduationCap, LogIn, 
+  Edit2, Clipboard, CheckSquare, Banknote, UserCheck, Fan
+} from "lucide-react";
 import { useState, useEffect, useRef, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Sidebar, { iconMap } from "../components/Sidebar";
+
+// Map string icon names to components
+const LinkIcons = {
+  BookOpen, Clock, CalendarOff, Receipt, AlertTriangle, 
+  DollarSign, Image, Share2, Briefcase, UserPlus, Star: Star, 
+  FileText, BarChart2, Megaphone, FileSignature, Users, Badge, 
+  TrendingUp, UserMinus, Heart, Monitor, Zap, Package, 
+  Tool: Wrench, Smartphone, List, Calendar, Shield, Home, 
+  Activity, Cross: X, Building, BarChart, Settings, 
+  UploadCloud, Table, Database, GraduationCap, LogIn, 
+  Edit2, Clipboard, CheckSquare, Banknote, 'user-check': UserCheck,
+  HVAC: Fan
+};
 
 function DashboardContent() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -169,15 +192,33 @@ function DashboardContent() {
                         href={link.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="link-card"
+                        className={`link-card ${link.image ? 'has-image' : ''}`}
                         initial={{ opacity: 0, scale: 0.95 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ delay: i * 0.05 }}
                         whileHover={{ scale: 1.02, y: -2 }}
                       >
+                        {link.image && (
+                          <>
+                            <div className="link-card-bg" style={{ backgroundImage: `url(${link.image})` }}></div>
+                            <div className="link-card-overlay"></div>
+                          </>
+                        )}
                         <div className="link-content">
-                          <span className="link-name">{link.name}</span>
-                          <ExternalLink size={14} className="link-arrow" />
+                          <div className={`link-icon-wrapper bg-gradient-to-br ${link.gradient || 'from-gray-700 to-gray-600'}`}>
+                            {LinkIcons[link.icon] ? (
+                               (() => {
+                                 const Icon = LinkIcons[link.icon];
+                                 return <Icon size={20} color="white" strokeWidth={2} />;
+                               })()
+                            ) : (
+                               <FileText size={20} color="white" />
+                            )}
+                          </div>
+                          <div className="link-info">
+                            <span className="link-name">{link.name}</span>
+                            <span className="link-action">Open Resource <ExternalLink size={12} /></span>
+                          </div>
                         </div>
                         <div className="card-shine"></div>
                       </motion.a>

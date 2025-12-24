@@ -89,7 +89,7 @@ export default function Sidebar({ activeCategory, onNavigate }) {
             style={{marginBottom: '20px'}}
           >
             <div className="nav-icon"><Calendar size={18} /></div>
-            <span>Schedules</span>
+            <span>Payroll & Holidays</span>
           </button>
 
           <div className="nav-label">Categories</div>

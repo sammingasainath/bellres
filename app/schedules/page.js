@@ -303,7 +303,7 @@ function SchedulesContent() {
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
               >
-                Schedules & Calendars
+                Payroll & Holidays
               </motion.h1>
               <motion.p
                 initial={{ opacity: 0 }}
