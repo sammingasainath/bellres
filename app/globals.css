@@ -1469,15 +1469,19 @@ body {
 
 .upcoming-ribbon {
   position: absolute;
-  top: 12px;
-  right: -30px;
+  top: 32px;
+  right: -60px;
+  width: 220px;
+  text-align: center;
   background: var(--accent);
   color: var(--bg-dark);
-  padding: 4px 40px;
-  font-size: 0.65rem;
-  font-weight: 700;
+  padding: 6px 0;
+  font-size: 0.7rem;
+  font-weight: 800;
   text-transform: uppercase;
   transform: rotate(45deg);
+  z-index: 10;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .mega-emoji {
@@ -2207,7 +2211,41 @@ body {
   border-radius: 8px;
   font-size: 0.8rem;
   color: #22c55e;
-  font-weight: 600;
+}
+
+/* Holiday Cards Refinements */
+.holiday-mega-card.today-highlight {
+  border: 2px solid #fbbf24;
+  box-shadow: 0 0 20px rgba(251, 191, 36, 0.3);
+  background: linear-gradient(135deg, rgba(251, 191, 36, 0.1), rgba(16, 185, 129, 0.05));
+}
+
+.upcoming-ribbon.today {
+  background: #fbbf24;
+  color: #0f172a;
+  font-weight: 800;
+}
+
+.today-text {
+  font-size: 1.5rem !important;
+  color: #fbbf24;
+  font-weight: 800;
+}
+
+/* Passed Holiday */
+.holiday-mega-card.passed-holiday {
+  opacity: 0.5;
+  filter: grayscale(0.8);
+  pointer-events: none;
+  /* Make unclickable/faded */
+  background: rgba(255, 255, 255, 0.02);
+  border-color: rgba(255, 255, 255, 0.05);
+}
+
+.passed-text {
+  font-size: 1rem;
+  color: #94a3b8;
+  font-style: italic;
 }
 
 .card-calendar-btn {

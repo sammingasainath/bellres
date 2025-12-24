@@ -474,10 +474,11 @@ function SchedulesContent() {
                 <div className="quick-stats-row">
                   <StatCard 
                     icon={<Gift size={24} />}
-                    label="Next Holiday"
+                    label={upcomingHolidays[0]?.daysUntil === 0 ? "Holiday Today!" : "Next Holiday"}
                     value={upcomingHolidays[0]?.name || 'N/A'}
-                    subtext={upcomingHolidays[0] ? `in ${upcomingHolidays[0].daysUntil} days` : ''}
+                    subtext={upcomingHolidays[0]?.daysUntil === 0 ? "HAPPENING NOW 🎄" : (upcomingHolidays[0] ? `in ${upcomingHolidays[0].daysUntil} days` : '')}
                     color="purple"
+                    highlight={upcomingHolidays[0]?.daysUntil === 0}
                   />
                   <StatCard 
                     icon={<TrendingUp size={24} />}
@@ -735,7 +736,13 @@ function HolidayMegaCard({ holiday, index }) {
                 holiday.name.includes('Memorial') ? '🎖️' :
                 holiday.name.includes('Labor') ? '👷' : '🎉';
 
-  const isUpcoming = holiday.daysUntil !== null && holiday.daysUntil >= 0 && holiday.daysUntil <= 30;
+  // Force integer logic to prevent floating point/negative zero issues
+  const days = holiday.daysUntil !== null ? Math.ceil(holiday.daysUntil) : null;
+  
+  const isToday = days === 0;
+  const isPassed = days !== null && days < 0;
+  // upcoming is purely future (tomorrow onwards)
+  const isUpcoming = days !== null && days > 0 && days <= 30;
 
   // Clean up duplicate text in data (e.g., "Thursday November 26Thursday November 26")
   const cleanText = (text) => {
@@ -750,23 +757,33 @@ function HolidayMegaCard({ holiday, index }) {
 
   return (
     <motion.div 
-      className={`holiday-mega-card ${isUpcoming ? 'upcoming' : ''}`}
+      className={`holiday-mega-card ${isUpcoming ? 'upcoming' : ''} ${isToday ? 'today-highlight' : ''} ${isPassed ? 'passed-holiday' : ''}`}
       initial={{ opacity: 0, scale: 0.8 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ delay: index * 0.1 }}
-      whileHover={{ y: -8, scale: 1.03 }}
+      whileHover={{ y: isPassed ? 0 : -8, scale: isPassed ? 1 : 1.03 }}
     >
-      {isUpcoming && <div className="upcoming-ribbon">Coming Soon!</div>}
+      {isUpcoming && !isToday && <div className="upcoming-ribbon">Coming Soon!</div>}
+      
       <div className="mega-emoji">{emoji}</div>
       <h3>{holiday.name}</h3>
       <p className="mega-date">{cleanText(holiday.date)}</p>
       {holiday.closedDate && (
         <p className="mega-closed">Office: {cleanText(holiday.closedDate)}</p>
       )}
-      {holiday.daysUntil !== null && holiday.daysUntil >= 0 && (
+      
+      {days !== null && (
         <div className="mega-countdown">
-          <span className="count">{holiday.daysUntil}</span>
-          <span className="unit">days away</span>
+          {isToday ? (
+             <span className="unit today-text">TODAY!</span>
+          ) : isPassed ? (
+             <span className="unit passed-text">Passed</span>
+          ) : (
+            <>
+              <span className="count">{days}</span>
+              <span className="unit">days away</span>
+            </>
+          )}
         </div>
       )}
     </motion.div>
