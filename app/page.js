@@ -156,6 +156,34 @@ function DashboardContent() {
             </motion.div>
           )}
 
+          {/* The Empire Map */}
+          {!searchTerm && (
+            <motion.div 
+              className="empire-section"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+            >
+              <h3 className="section-title">🌍 The Empire</h3>
+              <div className="map-container" style={{ overflow: 'hidden', position: 'relative' }}>
+                <iframe 
+                  src="https://www.google.com/maps/d/embed?mid=105xU3HnynYUhrrABiSDQEWGRCBInASQi&ehbc=2E312F"    
+                  width="100%" 
+                  height="510" 
+                  style={{ 
+                    border: 0, 
+                    borderRadius: '24px',
+                    filter: 'invert(90%) hue-rotate(180deg) contrast(0.9) saturate(0.8)',
+                    marginTop: '-60px'
+                  }}
+                  allowFullScreen="" 
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                ></iframe>
+              </div>
+            </motion.div>
+          )}
+
           <div className="categories-grid">
             {filteredData.map((category, index) => {
               // Icon mapping is now in Sidebar but we repeat or import it?

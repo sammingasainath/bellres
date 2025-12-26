@@ -1442,8 +1442,13 @@ body {
 
 .holidays-mega-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  /* Increased min-width for better spacing */
+  grid-auto-rows: auto;
+  /* Ensure rows size to content */
+  align-items: start;
+  /* Prevent weird stretching overlap */
+  gap: 24px;
 }
 
 .holiday-mega-card {
